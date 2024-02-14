@@ -4,16 +4,18 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/auth.routes.js';
 import connectToMongoDB from './db/connectToMongoDB.js';
 
-dotenv.config();
-
-const PORT = process.env.PORT || 5000;
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-app.get('/', (req, res) => {
-    // root route
-    res.send('This is a test page');
-});
+dotenv.config();
+
+app.use(express.json()); // for parsing application/json (from req.body)
+
+// app.get('/', (req, res) => {
+//     // root route
+//     res.send('This is a test page');
+// });
 
 app.use('/api/auth', authRoutes);
 
