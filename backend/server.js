@@ -1,9 +1,9 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth.routes.js';
 import connectToMongoDB from './db/connectToMongoDB.js';
-
+import messageRoutes from './routes/message.routes.js';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -11,6 +11,7 @@ const PORT = process.env.PORT || 5000;
 dotenv.config();
 
 app.use(express.json()); // for parsing application/json (from req.body)
+app.use(cookieParser());
 
 // app.get('/', (req, res) => {
 //     // root route
@@ -18,6 +19,8 @@ app.use(express.json()); // for parsing application/json (from req.body)
 // });
 
 app.use('/api/auth', authRoutes);
+
+app.use('/api/messages', messageRoutes);
 
 app.listen(PORT, () => {
     connectToMongoDB();
